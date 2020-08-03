@@ -19,11 +19,10 @@ In the [DynamoDB documentation for modeling relational data in a NoSQL database]
 |10| Get current inventories for a given product at all warehouses|
 |11| Get customers by account representative|
 |12| Get orders by account representative and date|
-|13| Get all items on order for a given product|
-|14| Get all employees with a given job title|
-|15| Get inventory by product and warehouse|
-|16| Get total product inventory|
-|17| Get account representatives ranked by order total and sales period|
+|13| Get all employees with a given job title|
+|14| Get inventory by product and warehouse|
+|15| Get total product inventory|
+|16| Get account representatives ranked by order total and sales period|
 
 In this example, you will learn how to support these data access patterns using GraphQL, AWS Amplify, and the GraphQL Transform library. This example has the following types:
 
@@ -441,10 +440,7 @@ query getOrdersForAccountRepresentative($representativeId: ID!) {
 }
 ```
 
-## 13. Get all items on order for a given product:
-This is the same as number 9.
-
-## 14. Get all employees with a given job title:
+## 13. Get all employees with a given job title:
 Using the `byTitle` `@key` makes this access pattern quite easy.
 
 ```graphql
@@ -460,7 +456,7 @@ query employeesByJobTitle {
 }
 ```
 
-## 15. Get inventory by product by warehouse:
+## 14. Get inventory by product by warehouse:
 Here having the inventories be held in a separate model is particularly useful since this model can have its own partition key and sort key such that the inventories themselves can be queried as is needed for this access-pattern.
 
 A query on this model would look like this:
@@ -489,7 +485,7 @@ query byWarehouseId($warehouseID: ID!) {
 }
 ```
 
-## 16. Get total product inventory:
+## 15. Get total product inventory:
 How this would be done depends on the use case. If one just wants a list of all inventories in all warehouses, one could just run a list inventories on the Inventory model:
 
 ```graphql
@@ -504,7 +500,7 @@ query listInventorys {
 }
 ```
 
-## 17. Get sales representatives ranked by order total and sales period:
+## 16. Get sales representatives ranked by order total and sales period:
 It's uncertain exactly what this means. My take is that the sales period is either a date range or maybe even a month or week. Therefore we can set the sales period as a string and query using the combination of `salesPeriod` and `orderTotal`. We can also set the `sortDirection` in order to get the return values from largest to smallest:
 
 ```graphql
