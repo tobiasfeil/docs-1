@@ -12,7 +12,7 @@ In the [DynamoDB documentation for modeling relational data in a NoSQL database]
 |3| Find an employee's phone number(s)|
 |4| Find a customer's phone number(s)|
 |5| Get orders for a given customer within a given date range|
-|6| Show all open orders within a given date range across all customers|
+|6| Show all open orders within a given date range for a specific customer|
 |7| See all employees recently hired|
 |8| Find all employees working in a given warehouse|
 |9| Get all items on order for a given product|
@@ -284,7 +284,7 @@ query getCustomerWithOrdersByDate($customerID: ID!) {
 }
 ```
 
-## 6. Show all open orders within a given date range across all customers:
+## 6. Show all open orders within a given date range for a specific customer:
 The `@key` `byCustomerByStatusByDate` enables you to run a query that would work for this access pattern.
 
 In this example, a composite sort key (combination of two or more keys) with the `status` and `date` is used. What this means is that the unique identifier of a record in the database is created by concatenating these two fields (status and date) together, and then the GraphQL resolver can use predicates like `Between` or `Contains` to efficiently search the unique identifier for matches rather than scanning all records in the database and then filtering them out.
